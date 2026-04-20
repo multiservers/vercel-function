@@ -14,10 +14,12 @@ export default async function handler(request: Request): Promise<Response> {
     const backendURL = BACKEND_URL + remainder;
 
     const headers = new Headers();
-    const ct = request.headers.get('content-type');
-    const cl = request.headers.get('content-length');
-    if (ct) headers.set('content-type', ct);
-    if (cl) headers.set('content-length', cl);
+    request.headers.forEach((value, key) => {
+      const k = key.toLowerCase();
+      if (k !== 'host' && k !== 'x-key' && !k.startsWith('x-vercel') && !k.startsWith('x-forwarded') && k !== 'forwarded') {
+        headers.set(key, value);
+      }
+    });
 
     const method = request.method;
     const backendResponse = await fetch(backendURL, {
@@ -29,10 +31,12 @@ export default async function handler(request: Request): Promise<Response> {
     });
 
     const responseHeaders = new Headers();
-    const rct = backendResponse.headers.get('content-type');
-    const rcl = backendResponse.headers.get('content-length');
-    if (rct) responseHeaders.set('content-type', rct);
-    if (rcl) responseHeaders.set('content-length', rcl);
+    backendResponse.headers.forEach((value, key) => {
+      const k = key.toLowerCase();
+      if (k !== 'transfer-encoding' && k !== 'connection') {
+        responseHeaders.set(key, value);
+      }
+    });
 
     return new Response(backendResponse.body, {
       status: backendResponse.status,
