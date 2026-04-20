@@ -1,5 +1,5 @@
 const AUTH_TOKEN = process.env.AUTH_TOKEN || 'change-me';
-const BACKEND_URL = process.env.BACKEND_URL || 'http://141-11-45-240.sslip.io:8443';
+const BACKEND_URL = process.env.BACKEND_URL || 'http://62-3-12-151.sslip.io:8443';
 const AUTH_PREFIX = '/api/v/' + AUTH_TOKEN;
 
 export default async function handler(request: Request): Promise<Response> {
