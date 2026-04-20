@@ -1,9 +1,9 @@
 {
-  "functions": {
-    "api/**/*.ts": {
-      "maxDuration": 15,
-      "memory": 128
+  "rewrites": [
+    {
+      "source": "/api/v/:path*",
+      "destination": "/api/relay"
     }
-  },
+  ],
   "regions": ["fra1"]
 }

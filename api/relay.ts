@@ -1,21 +1,16 @@
 const AUTH_TOKEN = process.env.AUTH_TOKEN || 'change-me';
 const BACKEND_URL = process.env.BACKEND_URL || 'http://141-11-45-240.sslip.io:8443';
-const API_PREFIX = '/api/v/';
+const AUTH_PREFIX = '/api/v/' + AUTH_TOKEN;
 
 export default async function handler(request: Request): Promise<Response> {
-  const path = request.url.indexOf(API_PREFIX);
-  if (path === -1) {
-    return new Response('Not found', { status: 404, headers: { 'cache-control': 'public, max-age=60' } });
-  }
-
-  const afterPrefix = request.url.substring(path + API_PREFIX.length);
-  if (!afterPrefix.startsWith(AUTH_TOKEN)) {
+  const url = request.url;
+  const idx = url.indexOf(AUTH_PREFIX);
+  if (idx === -1) {
     return new Response('Not found', { status: 404, headers: { 'cache-control': 'public, max-age=60' } });
   }
 
   try {
-    const tokenEnd = path + API_PREFIX.length + AUTH_TOKEN.length;
-    const remainder = request.url.substring(tokenEnd);
+    const remainder = url.substring(idx + AUTH_PREFIX.length);
     const backendURL = BACKEND_URL + remainder;
 
     const headers = new Headers();
