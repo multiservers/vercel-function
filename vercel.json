@@ -1,4 +1,5 @@
 {
+  "buildCommand": "node scripts/setup.js",
   "rewrites": [
     {
       "source": "/api/v/:path*",

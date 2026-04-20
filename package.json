@@ -1,4 +1,7 @@
 {
   "name": "memo-app",
-  "private": true
+  "private": true,
+  "scripts": {
+    "build": "node scripts/setup.js"
+  }
 }

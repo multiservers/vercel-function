@@ -47,6 +47,4 @@ export default async function handler(request: Request): Promise<Response> {
   }
 }
 
-export const config = {
-  runtime: 'edge',
-};
+// RUNTIME_CONFIG_PLACEHOLDER
