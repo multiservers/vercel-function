@@ -3,5 +3,8 @@
   "private": true,
   "scripts": {
     "build": "node scripts/setup.js"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0"
   }
 }
